@@ -52,7 +52,8 @@ class Ball:
                 print(player_2.score)
                 start_time = pygame.time.get_ticks()
                 GAME_STATE = 'ready'
-                self.rect.y = CANVAS_HEIGHT / 2 - 16
+                self.rect.y = CANVAS_HEIGHT / 2 -14
+                self.rect.x = CANVAS_WIDTH/2
                 self.SPEED_DY *= -1
                 player_1.score += 1
                 pygame.mixer.Sound.play(SCORE_UP)
@@ -63,7 +64,8 @@ class Ball:
                 player_2.score += 1
                 game_over(2)
             else:
-                self.rect.y = CANVAS_HEIGHT / 2 - 16
+                self.rect.y = CANVAS_HEIGHT / 2 -14
+                self.rect.x = CANVAS_WIDTH / 2
                 start_time = pygame.time.get_ticks()
                 GAME_STATE = 'ready'
                 self.SPEED_DY *= -1
@@ -73,12 +75,20 @@ class Ball:
             self.SPEED_DX *= -1
 
     def collisition_detect(self):
-        if pygame.Rect.colliderect(self.rect, player_1.rect):
+        if pygame.Rect.colliderect(self.rect, player_1.rect) and self.SPEED_DY>0:
             self.SPEED_DY *= -1
             pygame.mixer.Sound.play(PLAYER_1_HIT)
-        if pygame.Rect.colliderect(self.rect, player_2.rect):
+        if pygame.Rect.colliderect(self.rect, player_2.rect) and self.SPEED_DY<0:
             self.SPEED_DY *= -1
             pygame.mixer.Sound.play(PLAYER_2_HIT)
+
+
+        # if pygame.Rect.colliderect(self.rect, player_1.rect):
+        #     self.SPEED_DY *= -1
+        #     pygame.mixer.Sound.play(PLAYER_1_HIT)
+        # if pygame.Rect.colliderect(self.rect, player_2.rect):
+        #     self.SPEED_DY *= -1
+        #     pygame.mixer.Sound.play(PLAYER_2_HIT)
 
 
 def disply_background():
