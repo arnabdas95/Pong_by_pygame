@@ -99,16 +99,16 @@ def count_down(game_stop):
     global GAME_STATE
 
     if pygame.time.get_ticks() - game_stop < 1500:
-        count_time = GAME_FONT.render("READY", False, (255, 0, 0))
+        count_time = GAME_FONT.render("READY", False, (127, 235, 191))
         screen.blit(count_time, (CANVAS_WIDTH / 2 - 30, CANVAS_HEIGHT / 2 - 100))
     elif pygame.time.get_ticks() - game_stop < 2500:
-        count_time = GAME_FONT.render("1", False, (255, 0, 0))
+        count_time = GAME_FONT.render("1", False, (127, 235, 191))
         screen.blit(count_time, (CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 100))
     elif pygame.time.get_ticks() - game_stop < 3500:
-        count_time = GAME_FONT.render("2", False, (255, 0, 0))
+        count_time = GAME_FONT.render("2", False, (127, 235, 191))
         screen.blit(count_time, (CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2 - 100))
     elif 3501 < pygame.time.get_ticks() - game_stop < 4000:
-        count_time = GAME_FONT.render("START", False, (255, 0, 0))
+        count_time = GAME_FONT.render("START", False, (0, 224, 133))
         screen.blit(count_time, (CANVAS_WIDTH / 2 - 25, CANVAS_HEIGHT / 2 - 100))
     else:
         GAME_STATE = 'active'
@@ -140,7 +140,7 @@ PLAYER_1_Y_POS = 600
 PLAYER_2_Y_POS = 50
 PLAYER_MOV_X = 70
 GAME_STATE = 'ready'
-MAX_GAME_POINT = 2
+MAX_GAME_POINT = 9
 GAME_FONT = pygame.font.Font("freesansbold.ttf", 17)
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
