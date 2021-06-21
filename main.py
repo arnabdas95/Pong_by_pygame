@@ -1,4 +1,4 @@
-#PONG GAME
+# PONG GAME
 import pygame, sys, random
 
 pygame.mixer.pre_init(44100, -16, 2, 512)
@@ -52,8 +52,8 @@ class Ball:
                 print(player_2.score)
                 start_time = pygame.time.get_ticks()
                 GAME_STATE = 'ready'
-                self.rect.y = CANVAS_HEIGHT / 2 -14
-                self.rect.x = CANVAS_WIDTH/2
+                self.rect.y = CANVAS_HEIGHT / 2 - 14
+                self.rect.x = CANVAS_WIDTH / 2
                 self.SPEED_DY *= -1
                 player_1.score += 1
                 pygame.mixer.Sound.play(SCORE_UP)
@@ -64,7 +64,7 @@ class Ball:
                 player_2.score += 1
                 game_over(2)
             else:
-                self.rect.y = CANVAS_HEIGHT / 2 -14
+                self.rect.y = CANVAS_HEIGHT / 2 - 14
                 self.rect.x = CANVAS_WIDTH / 2
                 start_time = pygame.time.get_ticks()
                 GAME_STATE = 'ready'
@@ -75,13 +75,12 @@ class Ball:
             self.SPEED_DX *= -1
 
     def collisition_detect(self):
-        if pygame.Rect.colliderect(self.rect, player_1.rect) and self.SPEED_DY>0:
+        if pygame.Rect.colliderect(self.rect, player_1.rect) and self.SPEED_DY > 0:
             self.SPEED_DY *= -1
             pygame.mixer.Sound.play(PLAYER_1_HIT)
-        if pygame.Rect.colliderect(self.rect, player_2.rect) and self.SPEED_DY<0:
+        if pygame.Rect.colliderect(self.rect, player_2.rect) and self.SPEED_DY < 0:
             self.SPEED_DY *= -1
             pygame.mixer.Sound.play(PLAYER_2_HIT)
-
 
         # if pygame.Rect.colliderect(self.rect, player_1.rect):
         #     self.SPEED_DY *= -1
@@ -93,8 +92,11 @@ class Ball:
 
 def disply_background():
     screen.blit(BACKGROUND, (0, 0))
+
+
 def disply_intro():
     screen.blit(INTRO, (0, 0))
+
 
 def count_down(game_stop):
     global GAME_STATE
@@ -145,17 +147,17 @@ MAX_GAME_POINT = 10
 GAME_FONT = pygame.font.Font("freesansbold.ttf", 17)
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
-BACKGROUND = pygame.image.load("pong_bck.png")
-INTRO =pygame.image.load("intro.png")
-PLAYER_1_HIT = pygame.mixer.Sound("p_1.wav")
-PLAYER_2_HIT = pygame.mixer.Sound("p_2.wav")
-SCORE_UP = pygame.mixer.Sound("add_score.wav")
-WIN = pygame.mixer.Sound("win.mp3")
+BACKGROUND = pygame.image.load("Assets/pong_bck.png")
+INTRO = pygame.image.load("Assets/intro.png")
+PLAYER_1_HIT = pygame.mixer.Sound("Assets/p_1.wav")
+PLAYER_2_HIT = pygame.mixer.Sound("Assets/p_2.wav")
+SCORE_UP = pygame.mixer.Sound("Assets/add_score.wav")
+WIN = pygame.mixer.Sound("Assets/win.mp3")
 
-player_1 = Player(CANVAS_WIDTH / 2, PLAYER_1_Y_POS, "red_player.png", PLAYER_MOV_X)
-player_2 = Player(CANVAS_WIDTH / 2, PLAYER_2_Y_POS, "yellow_player.png", PLAYER_MOV_X)
+player_1 = Player(CANVAS_WIDTH / 2, PLAYER_1_Y_POS, "Assets/red_player.png", PLAYER_MOV_X)
+player_2 = Player(CANVAS_WIDTH / 2, PLAYER_2_Y_POS, "Assets/yellow_player.png", PLAYER_MOV_X)
 
-tennis_ball = Ball("ball.png", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2)
+tennis_ball = Ball("Assets/ball.png", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2)
 start_time = 0
 
 while True:
@@ -170,8 +172,9 @@ while True:
     screen.blit(player_2_score, (CANVAS_WIDTH / 2 - 50, 10))
     tennis_ball.draw(screen)
 
-    if GAME_STATE =='intro':
+    if GAME_STATE == 'intro':
         disply_intro()
+
     if GAME_STATE == 'active':
         tennis_ball.collisition_detect()
         tennis_ball.update_ball()
@@ -188,7 +191,7 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and GAME_STATE == 'intro':
-            GAME_STATE="ready"
+            GAME_STATE = "ready"
             start_time = pygame.time.get_ticks()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and GAME_STATE == 'game_over':
             restart_game()
