@@ -17,8 +17,6 @@ class Player:
         self.rect.center = (pos_x, pos_y)
         self.score = 0
 
-    def update(self):
-        print(self.score)
 
     def draw(self, screen):
         screen.blit(self.image, self.rect)
@@ -49,7 +47,6 @@ class Ball:
                 player_1.score += 1
                 game_over(1)
             else:
-                print(player_2.score)
                 start_time = pygame.time.get_ticks()
                 GAME_STATE = 'ready'
                 self.rect.y = CANVAS_HEIGHT / 2 - 14
@@ -82,21 +79,11 @@ class Ball:
             self.SPEED_DY *= -1
             pygame.mixer.Sound.play(PLAYER_2_HIT)
 
-        # if pygame.Rect.colliderect(self.rect, player_1.rect):
-        #     self.SPEED_DY *= -1
-        #     pygame.mixer.Sound.play(PLAYER_1_HIT)
-        # if pygame.Rect.colliderect(self.rect, player_2.rect):
-        #     self.SPEED_DY *= -1
-        #     pygame.mixer.Sound.play(PLAYER_2_HIT)
-
-
 def disply_background():
     screen.blit(BACKGROUND, (0, 0))
 
-
 def disply_intro():
     screen.blit(INTRO, (0, 0))
-
 
 def count_down(game_stop):
     global GAME_STATE
@@ -116,12 +103,10 @@ def count_down(game_stop):
     else:
         GAME_STATE = 'active'
 
-
 def game_over(winner):
     global win
     pygame.mixer.Sound.play(WIN)
     win = GAME_FONT.render(f"WINNER : Player {winner}", False, (25, 250, 250))
-
 
 def restart_game():
     global player_1, player_2, GAME_STATE, SPEED_DY, tennis_ball, start_time
@@ -147,6 +132,9 @@ MAX_GAME_POINT = 10
 GAME_FONT = pygame.font.Font("freesansbold.ttf", 17)
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
+ICON = pygame.image.load('Assets/ball.png')
+pygame.display.set_icon(ICON)
+pygame.display.set_caption('Pong Game')
 BACKGROUND = pygame.image.load("Assets/pong_bck.png")
 INTRO = pygame.image.load("Assets/intro.png")
 PLAYER_1_HIT = pygame.mixer.Sound("Assets/p_1.wav")
