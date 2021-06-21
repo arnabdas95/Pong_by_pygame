@@ -93,7 +93,8 @@ class Ball:
 
 def disply_background():
     screen.blit(BACKGROUND, (0, 0))
-
+def disply_intro():
+    screen.blit(INTRO, (0, 0))
 
 def count_down(game_stop):
     global GAME_STATE
@@ -139,13 +140,13 @@ CANVAS_HEIGHT = 650
 PLAYER_1_Y_POS = 600
 PLAYER_2_Y_POS = 50
 PLAYER_MOV_X = 70
-GAME_STATE = 'ready'
-MAX_GAME_POINT = 9
+GAME_STATE = 'intro'
+MAX_GAME_POINT = 10
 GAME_FONT = pygame.font.Font("freesansbold.ttf", 17)
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
 BACKGROUND = pygame.image.load("pong_bck.png")
-
+INTRO =pygame.image.load("intro.png")
 PLAYER_1_HIT = pygame.mixer.Sound("p_1.wav")
 PLAYER_2_HIT = pygame.mixer.Sound("p_2.wav")
 SCORE_UP = pygame.mixer.Sound("add_score.wav")
@@ -169,6 +170,8 @@ while True:
     screen.blit(player_2_score, (CANVAS_WIDTH / 2 - 50, 10))
     tennis_ball.draw(screen)
 
+    if GAME_STATE =='intro':
+        disply_intro()
     if GAME_STATE == 'active':
         tennis_ball.collisition_detect()
         tennis_ball.update_ball()
@@ -184,7 +187,9 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
-
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and GAME_STATE == 'intro':
+            GAME_STATE="ready"
+            start_time = pygame.time.get_ticks()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE and GAME_STATE == 'game_over':
             restart_game()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_RIGHT:
