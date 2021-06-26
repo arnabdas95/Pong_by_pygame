@@ -12,7 +12,7 @@ class Player:
         self.pos_y = pos_y
         self.PLAYER_MOV_X = PLAYER_MOV_X
         self.img_path = img_path
-        self.image = pygame.image.load(img_path)
+        self.image = pygame.image.load(img_path).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = (pos_x, pos_y)
         self.score = 0
@@ -28,7 +28,7 @@ class Ball:
         self.x = x
         self.y = y
         self.img_path = img_path
-        self.image = pygame.image.load(img_path)
+        self.image = pygame.image.load(img_path).convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.SPEED_DX = 3 * random.choice([1, -1])
@@ -73,10 +73,17 @@ class Ball:
 
     def collisition_detect(self):
         if pygame.Rect.colliderect(self.rect, player_1.rect) and self.SPEED_DY > 0:
-            self.SPEED_DY *= -1
+            if abs(self.rect.bottom - player_1.rect.top) <=10 :
+                self.SPEED_DY *= -1
+            else:
+                self.SPEED_DX *= -1
             pygame.mixer.Sound.play(PLAYER_1_HIT)
+
         if pygame.Rect.colliderect(self.rect, player_2.rect) and self.SPEED_DY < 0:
-            self.SPEED_DY *= -1
+            if abs(self.rect.top - player_2.rect.bottom) <= 10:
+                self.SPEED_DY *= -1
+            else:
+                self.SPEED_DX *= -1
             pygame.mixer.Sound.play(PLAYER_2_HIT)
 
 def disply_background():
@@ -132,11 +139,11 @@ MAX_GAME_POINT = 10
 GAME_FONT = pygame.font.Font("freesansbold.ttf", 17)
 clock = pygame.time.Clock()
 screen = pygame.display.set_mode((CANVAS_WIDTH, CANVAS_HEIGHT))
-ICON = pygame.image.load('Assets/ball.png')
+ICON = pygame.image.load('Assets/ball.png').convert_alpha()
 pygame.display.set_icon(ICON)
 pygame.display.set_caption('Pong Game')
-BACKGROUND = pygame.image.load("Assets/pong_bck.png")
-INTRO = pygame.image.load("Assets/intro.png")
+BACKGROUND = pygame.image.load("Assets/pong_bck.png").convert()
+INTRO = pygame.image.load("Assets/intro.png").convert()
 PLAYER_1_HIT = pygame.mixer.Sound("Assets/p_1.wav")
 PLAYER_2_HIT = pygame.mixer.Sound("Assets/p_2.wav")
 SCORE_UP = pygame.mixer.Sound("Assets/add_score.wav")
